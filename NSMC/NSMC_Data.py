@@ -33,5 +33,14 @@ train_data, test_data = TabularDataset.splits(
         path='.', train='ratings_train.txt', test='ratings_test.txt', format='tsv',
         fields=[('id', ID), ('text', TEXT), ('label', LABEL)], skip_header=True)
 
-print('훈련 샘플의 개수 : {}'.format(len(train_data)))
-print('테스트 샘플의 개수 : {}'.format(len(test_data)))
+# print('훈련 샘플의 개수 : {}'.format(len(train_data)))
+# print('테스트 샘플의 개수 : {}'.format(len(test_data)))
+
+# print(vars(train_data[0]))
+
+TEXT.build_vocab(train_data, min_freq=10, max_size=10000)
+
+print('단어 집합의 크기 : {}'.format(len(TEXT.vocab)))
+
+print(TEXT.vocab.stoi)
+
