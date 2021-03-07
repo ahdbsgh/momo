@@ -65,13 +65,18 @@ class PositionalEncoding(nn.Module):
 
 import torchtext
 from torchtext.data.utils import get_tokenizer
-TEXT = torchtext.data.Field(tokenize=get_tokenizer('basic_english'),
+
+# import torchtext.data.Field
+
+
+TEXT = torchtext.data.field(tokenize=get_tokenizer('basic_english'),
                             init_token='<sos>',
                             eos_token='<eos>',
                             lower=True)
 train_txt, val_txt, test_txt = torchtext.datasets.WikiText2.splits(TEXT)
 TEXT.build_vocab(train_txt)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
 
 def batchify(data, bsz):
     data = TEXT.numericalize([data.examples[0].text])
