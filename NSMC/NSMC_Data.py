@@ -9,14 +9,14 @@ from torchtext.legacy.data import TabularDataset
 
 tokenizer = Mecab()
 
-train_data = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_train.txt')
-test_data = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_test.txt')
+train_data = pd.read_table(r'ratings_train.txt')
+test_data = pd.read_table(r'ratings_test.txt')
 
 
 train_data = train_data.drop('id', axis=1)
 test_data = test_data.drop('id', axis=1)
-print(train_data.head(5))
-print(test_data.head(5))
+# print(train_data.head(5))
+# print(test_data.head(5))
 ID = torchtext.data.Field(sequential = False,
                 use_vocab = False) # 실제 사용은 하지 않을 예정
 
@@ -44,5 +44,7 @@ TEXT.build_vocab(train_data, min_freq=10, max_size=10000)
 
 print('단어 집합의 크기 : {}'.format(len(TEXT.vocab)))
 
-print(TEXT.vocab.stoi)
+# print(TEXT.vocab.stoi)
+
+print(TEXT.vocab.itos)
 
