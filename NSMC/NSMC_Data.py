@@ -2,30 +2,32 @@ import pandas as pd
 import torchtext
 from torchtext import data
 from konlpy.tag import Mecab
-from torchtext.data import TabularDataset
+import torchtext.legacy as torchtext
+from torchtext.legacy.data import TabularDataset
+
 
 
 tokenizer = Mecab()
 
-train_df = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_train.txt')
-test_df = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_test.txt')
+train_data = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_train.txt')
+test_data = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_test.txt')
 
 
 train_data = train_data.drop('id', axis=1)
 test_data = test_data.drop('id', axis=1)
-print(train_df.head(5))
-print(test_df.head(5))
-ID = data.Field(sequential = False,
+print(train_data.head(5))
+print(test_data.head(5))
+ID = torchtext.data.Field(sequential = False,
                 use_vocab = False) # 실제 사용은 하지 않을 예정
 
-TEXT = data.Field(sequential=True,
+TEXT = torchtext.data.Field(sequential=True,
                   use_vocab=True,
                   tokenize=tokenizer.morphs, # 토크나이저로는 Mecab 사용.
                   lower=True,
                   batch_first=True,
                   fix_length=20)
 
-LABEL = data.Field(sequential=False,
+LABEL = torchtext.data.Field(sequential=False,
                    use_vocab=False,
                    is_target=True)
 
