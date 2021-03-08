@@ -46,5 +46,5 @@ print('단어 집합의 크기 : {}'.format(len(TEXT.vocab)))
 
 # print(TEXT.vocab.stoi)
 
-print(TEXT.vocab.itos)
+print(TEXT.vocab.stoi)
 
