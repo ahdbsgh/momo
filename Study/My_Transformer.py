@@ -70,6 +70,7 @@ TEXT = torchtext.data.Field(tokenize=get_tokenizer('basic_english'),
                             init_token='<sos>',
                             eos_token='<eos>',
                             lower=True)
+
 train_txt, val_txt, test_txt = torchtext.datasets.WikiText2.splits(TEXT)
 TEXT.build_vocab(train_txt)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
