@@ -11,10 +11,10 @@ train_df = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_train.txt
 test_df = pd.read_table(r'C:\Users\Gachon\WorkSpace\momo\NSMC\ratings_test.txt')
 
 
-# train_data = train_data.drop('id', axis=1)
-# test_data = test_data.drop('id', axis=1)
-# print(train_df.head(5))
-# print(test_df.head(5))
+train_data = train_data.drop('id', axis=1)
+test_data = test_data.drop('id', axis=1)
+print(train_df.head(5))
+print(test_df.head(5))
 ID = data.Field(sequential = False,
                 use_vocab = False) # 실제 사용은 하지 않을 예정
 
