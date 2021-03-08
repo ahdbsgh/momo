@@ -64,7 +64,9 @@ class PositionalEncoding(nn.Module):
 
 import torchtext
 from torchtext.data.utils import get_tokenizer
-TEXT = torchtext.data.Field(tokenize=get_tokenizer('basic_english'),
+from torchtext.data import Field
+
+TEXT = torchtext.data.Field(tokenize=get_tokenizer("basic_english"),
                             init_token='<sos>',
                             eos_token='<eos>',
                             lower=True)
@@ -81,6 +83,12 @@ def batchify(data, bsz):
     # 데이터에 대하여 bsz 배치들로 동등하게 나눕니다.
     data = data.view(bsz, -1).t().contiguous()
     return data.to(device)
+
+batch_size = 20
+eval_batch_size = 10
+train_data = batchify(train_txt, batch_size)
+val_data = batchify(val_txt, eval_batch_size)
+test_data = batchify(test_txt, eval_batch_size)
 
 batch_size = 20
 eval_batch_size = 10
