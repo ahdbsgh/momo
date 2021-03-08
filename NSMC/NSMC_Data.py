@@ -4,6 +4,7 @@ from torchtext import data
 from konlpy.tag import Mecab
 import torchtext.legacy as torchtext
 from torchtext.legacy.data import TabularDataset
+from torchtext.legacy.data import Iterator
 
 
 
@@ -42,9 +43,20 @@ train_data, test_data = TabularDataset.splits(
 
 TEXT.build_vocab(train_data, min_freq=10, max_size=10000)
 
-print('단어 집합의 크기 : {}'.format(len(TEXT.vocab)))
+# print('단어 집합의 크기 : {}'.format(len(TEXT.vocab)))
 
 # print(TEXT.vocab.stoi)
 
-print(TEXT.vocab.stoi)
+# print(TEXT.vocab.stoi)
 
+batch_size = 5
+
+train_loader = Iterator(dataset=train_data, batch_size = batch_size)
+test_loader = Iterator(dataset=test_data, batch_size = batch_size)
+
+
+print('훈련 데이터의 미니 배치 수 : {}'.format(len(train_loader)))
+print('테스트 데이터의 미니 배치 수 : {}'.format(len(test_loader)))
+
+batch = next(iter(train_loader)) # 첫번째 미니배치
+print(batch.text)
