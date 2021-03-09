@@ -34,18 +34,21 @@ en = corpus.train.pairs
 # ko = pd.DataFrame(ko)
 # en = pd.DataFrame(en)
 
-tok_ko = Field(tokenize = tokenize_ko,
+tok_ko = Field(tokenize = token_ko,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = False)
 
-tok_en = Field(tokenize = tokenize_en,
+tok_en = Field(tokenize = token_en,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = True)
 
 # print(ko)
 
-print(tok_ko.tokenize(ko))
-print(tok_en.tokenize(en))
+# print(tok_ko.tokenize(ko))
+# print(tok_en.tokenize(en))
 
+test = "안녕 나는 윤호라고 해"
+
+print(tok_ko(test))
