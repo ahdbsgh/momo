@@ -12,43 +12,57 @@ from torchtext.legacy.data import Iterator
 token_ko = Mecab()
 token_en = TreebankWordTokenizer()
 
-def tokenize_ko(text):
-    """
-    Tokenizes Korean text from a string into a list of strings (tokens) and reverses it
-    """
-    return [tok.text for tok in token_ko.morphs(text)][::-1]
-
-def tokenize_en(text):
-    """
-    Tokenizes English text from a string into a list of strings (tokens)
-    """
-    return [tok.text for tok in token_en.tokenize(text)]
+# def tokenize_ko(text):
+#     """
+#     Tokenizes Korean text from a string into a list of strings (tokens) and reverses it
+#     """
+#     return [tok.text for tok in token_ko.morphs(text)][::-1]
+#
+# def tokenize_en(text):
+#     """
+#     Tokenizes English text from a string into a list of strings (tokens)
+#     """
+#     return [tok.text for tok in token_en.tokenize(text)]
 
 Korpora.fetch('korean_parallel_koen_news')
 
 corpus = Korpora.load("korean_parallel_koen_news")
 
-ko = corpus.train.texts
-en = corpus.train.pairs
+# print(corpus)
+# ko = corpus.train.texts
+# en = corpus.train.pairs
 
 # ko = pd.DataFrame(ko)
 # en = pd.DataFrame(en)
 
-tok_ko = Field(tokenize = token_ko,
+
+
+kor = Field(tokenize = token_ko.morphs,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = False)
 
-tok_en = Field(tokenize = token_en,
+eng = Field(tokenize = token_en.tokenize,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = True)
+#
+# train_data, test_data = TabularDataset.splits(
+#         path='.', train=corpus.train, test=corpus.test, format='tsv',
+#         fields=[('kor', kor), ('eng', eng)])
+train_data, valid_data, test_data = corpus.splits(fields = (kor, eng))
+
 
 # print(ko)
+#
+# print(token_ko.morphs(ko))
+# print(token_en.tokenize(en))
 
-# print(tok_ko.tokenize(ko))
-# print(tok_en.tokenize(en))
+# test = "안녕 나는 윤호라고 해"
+#
+# print(token_ko.morphs(test))
 
-test = "안녕 나는 윤호라고 해"
 
-print(tok_ko(test))
+#todo: torchtext 로 사용하니 안된다. 다른 SOS, EOS를 넣는 방법을 생각해보자
+
+
