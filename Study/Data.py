@@ -9,8 +9,8 @@ from nltk.tokenize import TreebankWordTokenizer
 from torchtext.legacy.data import TabularDataset
 from torchtext.legacy.data import Iterator
 
-tokenize_ko = Mecab()
-tokenize_en = TreebankWordTokenizer()
+# tokenize_ko = Mecab()
+# tokenize_en = TreebankWordTokenizer()
 
 def tokenize_ko(text):
     """
