@@ -10,6 +10,7 @@ from torchtext.legacy.data import Iterator
 
 tokenizer = Mecab()
 
+
 train_data = pd.read_table(r'ratings_train.txt')
 test_data = pd.read_table(r'ratings_test.txt')
 
