@@ -10,5 +10,3 @@ output = model(**encoded_input)
 generator = pipeline('text-generation', model='gpt2')
 set_seed(42)
 generation_text= generator("Hi my name is", max_length=10, num_return_sequences=5)
-
-print(generation_text)
