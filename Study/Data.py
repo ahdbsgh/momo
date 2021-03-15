@@ -23,44 +23,62 @@ token_en = TreebankWordTokenizer()
 #     Tokenizes English text from a string into a list of strings (tokens)
 #     """
 #     return [tok.text for tok in token_en.tokenize(text)]
-
-Korpora.fetch('korean_parallel_koen_news')
-
-corpus = Korpora.load("korean_parallel_koen_news")
-
+#################################################################################
+# Korpora.fetch('korean_parallel_koen_news')
+#
+# corpus = Korpora.load("korean_parallel_koen_news")
+#
 # print(corpus)
-# ko = corpus.train.texts
-# en = corpus.train.pairs
+# train_df = corpus.train
+# test_df = corpus.test
+# dev_df = corpus.dev
+#
+# train_df = pd.DataFrame(train_df)
+# test_df = pd.DataFrame(test_df)
+# dev_df = pd.DataFrame(dev_df)
+#
+# print(train_df)
+#
+# train_df.to_csv('train_df.csv')
+# test_df.to_csv('test_df.csv')
+# dev_df.to_csv('dev_df.csv')          ## 데이터 CSV파일로 변환후 사용
 
-# ko = pd.DataFrame(ko)
-# en = pd.DataFrame(en)
+#############################################################
+train_df = pd.read_csv('data/train_df.csv')
+test_df = pd.read_csv('data/test_df.csv')
+dev_df = pd.read_csv('data/dev_df.csv')
 
+print(train_df)
+print(train_df['text'])
+print(train_df['pair'])
 
+id = Field(sequential = False,
+           use_vocab = False) # 실제 사용은 하지 않을 예정
 
-kor = Field(tokenize = token_ko.morphs,
+kor = Field(sequential = True,
+            tokenize = token_ko.morphs,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = False)
 
-eng = Field(tokenize = token_en.tokenize,
+eng = Field(sequential = True,
+            tokenize = token_en.tokenize,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = True)
 #
-# train_data, test_data = TabularDataset.splits(
-#         path='.', train=corpus.train, test=corpus.test, format='tsv',
-#         fields=[('kor', kor), ('eng', eng)])
-train_data, valid_data, test_data = corpus.splits(fields = (kor, eng))
+train_data, test_data = TabularDataset.splits(
+        path='.', train='data/train_df.csv', test='data/test_df.csv', format='csv',
+        fields=[('id', id ), ('text', kor), ('pair', eng)],skip_header=True)
 
+print('훈련 샘플의 개수 : {}'.format(len(train_data)))
+print('테스트 샘플의 개수 : {}'.format(len(test_data)))
 
-# print(ko)
-#
-# print(token_ko.morphs(ko))
-# print(token_en.tokenize(en))
+print(vars(train_data[0]))
 
-# test = "안녕 나는 윤호라고 해"
-#
-# print(token_ko.morphs(test))
+kor.build_vocab(train_data, min_freq=10, max_size=10000)
+
+print('단어 집합의 크기 : {}'.format(len(kor.vocab)))
 
 
 #todo: torchtext 로 사용하니 안된다. 다른 SOS, EOS를 넣는 방법을 생각해보자
