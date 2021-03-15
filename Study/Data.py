@@ -81,6 +81,6 @@ kor.build_vocab(train_data, min_freq=10, max_size=10000)
 print('단어 집합의 크기 : {}'.format(len(kor.vocab)))
 
 
-#todo: torchtext 로 사용하니 안된다. 다른 SOS, EOS를 넣는 방법을 생각해보자
+#todo: 데이터 loader을 만들고 있다. 더 확실하게 만들어보자.
 
 
