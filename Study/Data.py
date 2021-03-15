@@ -28,45 +28,29 @@ Korpora.fetch('korean_parallel_koen_news')
 
 corpus = Korpora.load("korean_parallel_koen_news")
 
-print(corpus)
+# print(corpus)
 # ko = corpus.train.texts
 # en = corpus.train.pairs
+
 # ko = pd.DataFrame(ko)
 # en = pd.DataFrame(en)
-#
-# print(ko)
-# print(en)
-train_df = pd.DataFrame(corpus.train)
-test_df = pd.DataFrame(corpus.test)
-dev_df = pd.DataFrame(corpus.dev)
-
-print(train_df)
-print(test_df)
-print(dev_df)
-
-train_df.to_csv("train_df.csv")
-test_df.to_csv("test_df.csv")
-dev_df.to_csv("dev_df.csv")
 
 
 
-kor = Field(sequential = False,
-            tokenize = token_ko.morphs,
+kor = Field(tokenize = token_ko.morphs,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = False)
 
-eng = Field(sequential = False,
-            tokenize = token_en.tokenize,
+eng = Field(tokenize = token_en.tokenize,
             init_token = '<sos>',
             eos_token = '<eos>',
             lower = True)
-
-train_data, test_data = TabularDataset.splits(
-        path='.', train= train_df, test=test_df, format='tsv',
-        fields=[('text', kor), ('pair', eng)], skip_header=True)
-
-# # train_data, valid_data, test_data = corpus.splits(fields = (kor, eng))
+#
+# train_data, test_data = TabularDataset.splits(
+#         path='.', train=corpus.train, test=corpus.test, format='tsv',
+#         fields=[('kor', kor), ('eng', eng)])
+train_data, valid_data, test_data = corpus.splits(fields = (kor, eng))
 
 
 # print(ko)
@@ -80,5 +64,5 @@ train_data, test_data = TabularDataset.splits(
 
 
 #todo: torchtext 로 사용하니 안된다. 다른 SOS, EOS를 넣는 방법을 생각해보자
-# 아니야 torchtext써도 되긴해
+
 
