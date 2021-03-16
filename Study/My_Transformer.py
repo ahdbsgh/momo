@@ -2,6 +2,17 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torchtext.legacy.data import Field
+from nltk.tokenize import TreebankWordTokenizer
+from torchtext.legacy.data import TabularDataset
+from konlpy.tag import Mecab
+import torchtext
+from torchtext.data.utils import get_tokenizer
+import torchtext.legacy as torchtext
+
+
+token_ko = Mecab()
+token_en = TreebankWordTokenizer()
 
 class TransformerModel(nn.Module):
 
@@ -62,10 +73,6 @@ class PositionalEncoding(nn.Module):
         return self.dropout(x)
 
 
-import torchtext
-from torchtext.data.utils import get_tokenizer
-import torchtext.legacy as torchtext
-
 TEXT = torchtext.data.Field(tokenize=get_tokenizer('basic_english'),
                             init_token='<SOS>',
                             eos_token='<EOS>',
@@ -73,6 +80,9 @@ TEXT = torchtext.data.Field(tokenize=get_tokenizer('basic_english'),
 
 train_txt, val_txt, test_txt = torchtext.datasets.WikiText2.splits(TEXT)
 TEXT.build_vocab(train_txt)
+
+
+
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def batchify(data, bsz):
