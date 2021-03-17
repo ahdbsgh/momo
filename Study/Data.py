@@ -4,10 +4,10 @@ import nltk
 from konlpy.tag import Mecab
 import torch
 import torchtext
-from torchtext.legacy.data import Field
+from torchtext.data import Field
 from nltk.tokenize import TreebankWordTokenizer
-from torchtext.legacy.data import TabularDataset
-from torchtext.legacy.data import Iterator
+from torchtext.data import TabularDataset
+from torchtext.data import Iterator
 
 token_ko = Mecab()
 token_en = TreebankWordTokenizer()
