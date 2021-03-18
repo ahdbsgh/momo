@@ -2,13 +2,13 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchtext.legacy.data import Field
+from torchtext.data import Field
 from nltk.tokenize import TreebankWordTokenizer
-from torchtext.legacy.data import TabularDataset
+from torchtext.data import TabularDataset
 from konlpy.tag import Mecab
 import torchtext
 from torchtext.data.utils import get_tokenizer
-import torchtext.legacy as torchtext
+import torchtext as torchtext
 
 
 token_ko = Mecab()
