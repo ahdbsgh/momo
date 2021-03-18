@@ -8,7 +8,6 @@ from torchtext.data import TabularDataset
 from konlpy.tag import Mecab
 import torchtext
 from torchtext.data.utils import get_tokenizer
-import torchtext as torchtext
 
 
 token_ko = Mecab()
@@ -73,7 +72,7 @@ class PositionalEncoding(nn.Module):
         return self.dropout(x)
 
 
-TEXT = torchtext.data.Field(tokenize=get_tokenizer('basic_english'),
+TEXT = Field(tokenize=get_tokenizer('basic_english'),
                             init_token='<SOS>',
                             eos_token='<EOS>',
                             lower=True)
