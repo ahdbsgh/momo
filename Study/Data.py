@@ -89,19 +89,19 @@ eng.build_vocab(train_data, min_freq=10, max_size=10000)
 # print(kor.vocab.stoi)
 # print(eng.vocab.stoi)
 
-batch_size = 5
+# batch_size = 5
 
-train_loader = Iterator(dataset=train_data, batch_size = batch_size)
-test_loader = Iterator(dataset=test_data, batch_size = batch_size)
+# train_loader = Iterator(dataset=train_data, batch_size = batch_size)
+# test_loader = Iterator(dataset=test_data, batch_size = batch_size)
 
-print(train_loader.dataset)
+# print(train_loader.dataset)
 
-# print('훈련 데이터의 미니 배치 수 : {}'.format(len(train_loader)))
-# print('테스트 데이터의 미니 배치 수 : {}'.format(len(test_loader)))
+# # print('훈련 데이터의 미니 배치 수 : {}'.format(len(train_loader)))
+# # print('테스트 데이터의 미니 배치 수 : {}'.format(len(test_loader)))
 
-batch = next(iter(train_loader)) # 첫번째 미니배치
-print(batch.text)
+# batch = next(iter(train_loader)) # 첫번째 미니배치
+# print(batch.text)
 
-#todo: 데이터 loader을 만들고 있다. 더 확실하게 만들어보자.
+# #todo: 데이터 loader을 만들고 있다. 더 확실하게 만들어보자.
 
 
