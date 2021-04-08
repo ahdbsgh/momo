@@ -5,7 +5,9 @@ from konlpy.tag import Mecab
 import torch
 import torchtext
 from torchtext.data import Field
+from nltk.tokenize import word_tokenize
 from nltk.tokenize import TreebankWordTokenizer
+from nltk.tag import pos_tag
 from torchtext.data import TabularDataset
 from torchtext.data import Iterator
 
@@ -52,42 +54,70 @@ dev_df = pd.read_csv('data/dev_df.csv')
 # print(train_df['text'])
 # print(train_df['pair'])
 
-id = Field(sequential = False,
-           use_vocab = False) # 실제 사용은 하지 않을 예정
+train_kor_df = train_df['text']
+train_eng_df = train_df['pair']
 
-kor = Field(sequential = True,
-            tokenize = token_ko.pos,
-            init_token = '<sos>',
-            eos_token = '<eos>',
-            batch_first=True,
-            use_vocab=True,
-            lower = True)
+# print(train_kor_df)
+# print(train_eng_df)
 
-eng = Field(sequential = True,
-            tokenize = token_en.tokenize,
-            init_token = '<sos>',
-            eos_token = '<eos>',
-            batch_first=True,
-            use_vocab=True,
-            lower = True)
-#
-train_data, test_data = TabularDataset.splits(
-        path='.', train='data/train_df.csv', test='data/test_df.csv', format='csv',
-        fields=[('id', id ), ('text', kor), ('pair', eng)],skip_header=True)
+
+ko_dic = []
+for ko in train_kor_df:
+    tmp = []
+    tmp = token_ko.pos(ko)
+
+    ko_dic.append(tmp)
+
+print(ko_dic[1])
+
+en_dic = []
+for en in train_eng_df:
+    tmp = []
+    tmp = pos_tag(token_en.tokenize(en))
+
+    en_dic.append(tmp)
+
+print(en_dic[1])
+
+
+
+# id = Field(sequential = False,
+#            use_vocab = False) # 실제 사용은 하지 않을 예정
+
+# kor = Field(sequential = True,
+#             tokenize = token_ko.pos,
+#             init_token = '<sos>',
+#             eos_token = '<eos>',
+#             batch_first=True,
+#             use_vocab=True,
+#             )
+
+# eng = Field(sequential = True,
+#             tokenize = pos_tag(token_en.tokenize),
+#             init_token = '<sos>',
+#             eos_token = '<eos>',
+#             batch_first=True,
+#             use_vocab=True,
+#             lower = True)
+# #
+# train_data, test_data = TabularDataset.splits(
+#         path='.', train='data/train_df.csv', test='data/test_df.csv', format='csv',
+#         fields=[('id', id ), ('text', kor), ('pair', eng)],skip_header=True)
 
 # print('훈련 샘플의 개수 : {}'.format(len(train_data)))
 # print('테스트 샘플의 개수 : {}'.format(len(test_data)))
-#
+
+# # print(vars(train_data[0]))
 # print(vars(train_data[0]))
 
-kor.build_vocab(train_data, min_freq=10, max_size=10000)
-eng.build_vocab(train_data, min_freq=10, max_size=10000)
+# kor.build_vocab(train_data, min_freq=10, max_size=10000)
+# eng.build_vocab(train_data, min_freq=10, max_size=10000)
 
-print('단어 집합의 크기 : {}'.format(len(kor.vocab)))
-print('단어 집합의 크기 : {}'.format(len(eng.vocab)))
+# print('단어 집합의 크기 : {}'.format(len(kor.vocab)))
+# print('단어 집합의 크기 : {}'.format(len(eng.vocab)))
 
-print(kor.vocab.stoi)
-print(eng.vocab.stoi)
+# print(kor.vocab.stoi)
+# print(eng.vocab.stoi)
 
 # batch_size = 5
 
