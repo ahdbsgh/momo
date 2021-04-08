@@ -56,7 +56,7 @@ id = Field(sequential = False,
            use_vocab = False) # 실제 사용은 하지 않을 예정
 
 kor = Field(sequential = True,
-            tokenize = token_ko.morphs,
+            tokenize = token_ko.pos,
             init_token = '<sos>',
             eos_token = '<eos>',
             batch_first=True,
@@ -83,11 +83,11 @@ train_data, test_data = TabularDataset.splits(
 kor.build_vocab(train_data, min_freq=10, max_size=10000)
 eng.build_vocab(train_data, min_freq=10, max_size=10000)
 
-# print('단어 집합의 크기 : {}'.format(len(kor.vocab)))
-# print('단어 집합의 크기 : {}'.format(len(eng.vocab)))
-#
-# print(kor.vocab.stoi)
-# print(eng.vocab.stoi)
+print('단어 집합의 크기 : {}'.format(len(kor.vocab)))
+print('단어 집합의 크기 : {}'.format(len(eng.vocab)))
+
+print(kor.vocab.stoi)
+print(eng.vocab.stoi)
 
 # batch_size = 5
 
