@@ -134,4 +134,7 @@ print(en_dic[1])
 
 # #todo: 데이터 loader을 만들고 있다. 더 확실하게 만들어보자.
 
+# 이건 Passing 이 아니라 POS Tagging 임
+# 우리가 이번에 해야할것은 Passing 
+
 
