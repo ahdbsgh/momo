@@ -53,3 +53,7 @@
 #         obj = super(Borg, cls).__new__(cls, *args, **kwargs)
 #         obj.__dict__ = cls._shared_State
 #         return obj
+
+import transformers
+
+@classmethod(f)
