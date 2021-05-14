@@ -2,9 +2,6 @@ import pandas as pd
 import torchtext
 from torchtext import data
 from konlpy.tag import Mecab
-import torchtext.legacy as torchtext
-from torchtext.legacy.data import TabularDataset
-from torchtext.legacy.data import Iterator
 
 
 
