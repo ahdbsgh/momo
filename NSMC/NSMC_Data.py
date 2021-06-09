@@ -34,7 +34,7 @@ LABEL = torchtext.data.Field(sequential=False,
 #         path='.', train='ratings_train.txt', format='tsv',
 #         fields=[('id', ID), ('text', TEXT), ('label', LABEL)], skip_header=True)
 
-train_data, test_data = TabularDataset.splits(
+train_data, test_data = data.TabularDataset.splits(
         path='.', train='ratings_train.txt', test='ratings_test.txt', format='tsv',
         fields=[('id', ID), ('text', TEXT), ('label', LABEL)], skip_header=True)
 
